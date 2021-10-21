@@ -6,42 +6,78 @@
   </ion-header>
 
   <ion-content class="ion-padding">
-    <h1 slot="fixed">Grid With Columns with varying sizes based on content</h1>
+    <h1 slot="fixed">
+      <span class="ion-margin"> Title </span>
+    </h1>
     <br />
     <br />
     <br />
     <ion-grid>
       <ion-row class="ion-justify-content-center">
-        <ion-col> </ion-col>
-        <ion-col size="auto">
+        <ion-col size-xs="0" size-sm="0" size-md="2" size-lg="3" size-xl="4">
+        </ion-col>
+        <ion-col>
           <ion-grid>
             <ion-row class="ion-justify-content-center">
               <ion-col>
-                <ion-button>A</ion-button>
-                <ion-button>A</ion-button>
+                <ion-button>
+                  <ion-row class="background-icon ion-align-items-end">
+                    <ion-col> Accueil </ion-col>
+                  </ion-row>
+                </ion-button>
+                <ion-button>
+                  <ion-row class="background-icon ion-align-items-end">
+                    <ion-col> Notifications </ion-col>
+                  </ion-row>
+                </ion-button>
               </ion-col>
             </ion-row>
             <ion-row class="ion-justify-content-center">
               <ion-col>
-                <ion-button>A</ion-button>
-                <ion-button>A</ion-button>
+                <ion-button>
+                  <ion-row class="background-icon ion-align-items-end">
+                    <ion-col> Associer </ion-col>
+                  </ion-row>
+                </ion-button>
+                <ion-button>
+                  <ion-row class="background-icon ion-align-items-end">
+                    <ion-col> Dissocier </ion-col>
+                  </ion-row>
+                </ion-button>
               </ion-col>
             </ion-row>
             <ion-row class="ion-justify-content-center">
               <ion-col>
-                <ion-button>A</ion-button>
-                <ion-button>A</ion-button>
+                <ion-button>
+                  <ion-row class="background-icon ion-align-items-end">
+                    <ion-col> Test </ion-col>
+                  </ion-row>
+                </ion-button>
+                <ion-button>
+                  <ion-row class="background-icon ion-align-items-end">
+                    <ion-col> Test </ion-col>
+                  </ion-row>
+                </ion-button>
               </ion-col>
             </ion-row>
             <ion-row class="ion-justify-content-center">
               <ion-col>
-                <ion-button>A</ion-button>
-                <ion-button>A</ion-button>
+                <ion-button>
+                  <ion-row class="background-icon ion-align-items-end">
+                    <ion-col> Test </ion-col>
+                  </ion-row>
+                </ion-button>
+                <ion-button>
+                  <ion-row class="background-icon ion-align-items-end">
+                    <ion-col> Test </ion-col>
+                  </ion-row>
+                </ion-button>
               </ion-col>
             </ion-row>
           </ion-grid>
         </ion-col>
-        <ion-col> </ion-col>
+        <ion-col size-xs="0" size-sm="0" size-md="2" size-lg="3" size-xl="4">
+        </ion-col>
       </ion-row>
     </ion-grid>
   </ion-content>
