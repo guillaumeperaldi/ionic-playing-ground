@@ -1,4 +1,7 @@
-<ion-buttons class="close-show-keyboard {{ keyboardActive ? 'show' : 'hide' }}">
+<ion-buttons
+  class="close-show-keyboard {{ keyboardActive ? 'show' : 'hide' }}"
+  #keyboardButton
+>
   <ion-button fill="solid" shape="round" color="farmblue">
     <ion-icon
       slot="icon-only"
@@ -20,7 +23,7 @@
         <img class="logo logo-md" src="/assets/img/logo_farmlife.svg" />
       </ion-col>
     </ion-row>
-    <div style="color:red">{{ debug }}</div>
+    <div style="color:red">{{ viewport }} | {{ visualViewport }}</div>
     <form [formGroup]="loginForm" (ngSubmit)="login()">
       <ion-item lines="full">
         <ion-label position="floating" color="medium"

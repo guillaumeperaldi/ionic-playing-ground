@@ -45,8 +45,7 @@ ion-content {
   visibility: visible;
 }
 .close-show-keyboard {
-  position: sticky;
-  top: 100%;
+  position: fixed;
   transform: translate3d(-48px, -28px, 0);
   width: 48px;
   height: 0;
