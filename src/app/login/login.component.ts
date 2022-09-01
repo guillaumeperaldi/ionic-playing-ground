@@ -11,6 +11,9 @@ export class LoginComponent implements OnInit {
   private timer: number;
   public keyboardActive: boolean = false;
   public showHidePassword: boolean = false;
+  public defaultLogin: string = '';
+  public existingLang: string = 'fr-FR';
+  public availableLanguages = [{ code: 'fr-FR', locale: 'fr-FR' }];
 
   constructor(public readonly formBuilder: FormBuilder) {
     this.loginForm = formBuilder.group({

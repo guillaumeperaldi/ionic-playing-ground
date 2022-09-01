@@ -104,21 +104,9 @@
         <ion-icon name="checkmark-outline" slot="start"></ion-icon>
         {{ 'LOGIN.login' }}
       </ion-button>
-      <ion-button
-        shape="round"
-        color="farmblue"
-        expand="block"
-        fill="clear"
-        (click)="lostPwd()"
-      >
+      <ion-button shape="round" color="farmblue" expand="block" fill="clear">
         {{ 'LOGIN.forgot_password' }}
       </ion-button>
-      <div class="environment" *ngIf="isTestEnvironment">
-        Environnement de TEST
-      </div>
-      <div class="environment" *ngIf="isLocalEnvironment">
-        Environnement LOCAL
-      </div>
       <div class="version">Version 0</div>
     </form>
   </ion-card>
