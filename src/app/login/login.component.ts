@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
   public keyboardActive: boolean = false;
   public showHidePassword: boolean = false;
   public defaultLogin: string = '';
+  public debug: string = '';
   public existingLang: string = 'fr-FR';
   public availableLanguages = [{ code: 'fr-FR', locale: 'fr-FR' }];
 
@@ -23,7 +24,17 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  @HostListener('window:resize', ['$event']) onResize(): void {
+  @HostListener('window:click', ['$event']) onClick(event: Event): void {
+    if (event && event.target) {
+      const srcElement = event.target as HTMLElement;
+      const refElement = srcElement.closest('input');
+      if (refElement) {
+        this.debug = 'x' + refElement ? refElement.tagName : 'NOP';
+      } else {
+        this.debug = 'x' + 'NOP';
+      }
+    }
+
     // debounce resize, wait for resize to finish before doing stuff
     clearTimeout(this.timer);
     this.timer = window.setTimeout(() => {
