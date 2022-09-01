@@ -18,6 +18,9 @@ export class AppComponent {
     this.initializeApp();
   }
 
+  public showGrid = false;
+  public showLogin = true;
+
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
