@@ -1,0 +1,132 @@
+ion-content {
+  --padding-top: var(--ion-safe-area-top);
+  --padding-bottom: var(--ion-safe-area-bottom);
+  --background: var(--ion-color-farmblue)
+    linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0, rgba(0, 0, 0, 0.3) 80%);
+}
+
+.powered-by-itk {
+  display: block;
+  width: 100px;
+  height: 21px;
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.logo {
+  width: 280px;
+}
+
+.logo-sm {
+  padding-top: 3%;
+  margin: var(--small-value) 0;
+}
+
+.logo-md {
+  margin: var(--small-value) 0 30px;
+}
+
+.item-has-focus > ion-label {
+  color: rgb(121, 134, 203);
+}
+
+.form-error-hint {
+  padding-bottom: var(--small-value);
+  visibility: hidden;
+  color: var(--ion-color-danger);
+  font-weight: 600;
+  font-size: 17px;
+}
+
+.form-error-hint.show {
+  visibility: visible;
+}
+.close-show-keyboard {
+  position: sticky;
+  top: 100%;
+  transform: translate3d(-48px, -28px, 0);
+  width: 48px;
+  height: 0;
+  overflow: visible;
+  margin-left: 100%;
+  background: white;
+  border-radius: 50%;
+  transition: opacity ease-in 250ms;
+  &.show {
+    opacity: 1;
+  }
+  &.hide {
+    opacity: 0;
+    z-index: -1;
+  }
+  & ion-button {
+    height: 40px;
+    width: 40px;
+    min-width: 40px;
+    max-width: 40px;
+    & ion-icon {
+      margin-bottom: -2px;
+    }
+  }
+}
+ion-card {
+  text-align: center;
+  z-index: 2;
+  width: 100%;
+  border-radius: 0;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 30px;
+  .show-hide-password {
+    transform: translate3d(16px, 8px, 0);
+  }
+}
+
+.version {
+  position: relative;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  font-size: 0.7em;
+  line-height: var(--small-value);
+  text-align: right;
+  padding: 10px;
+  color: var(--ion-color-farmblue);
+}
+.environment {
+  position: relative;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  font-size: 1.3em;
+  line-height: 30px;
+  text-align: center;
+  color: var(--ion-color-farmblue);
+}
+@media screen and (min-width: 576px) {
+  ion-card {
+    width: 530px;
+    border-radius: 4px; //Ionic Default
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    min-height: 300px;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  ion-content {
+    --background: url('/assets/img/FarmLife_overlayedCow_tablet.jpg') no-repeat
+      center/cover;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  ion-content {
+    --background: url('/assets/img/FarmLife_overlayedCow.jpg') no-repeat
+      center/cover;
+  }
+}

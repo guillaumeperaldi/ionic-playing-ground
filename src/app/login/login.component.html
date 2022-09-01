@@ -1,0 +1,130 @@
+<ion-content>
+  <ion-row class="ion-hide-sm-up">
+    <ion-col size="12" class="ion-text-center ion-no-padding">
+      <img class="logo logo-sm" src="/assets/img/logo_farmlife_white.svg" />
+    </ion-col>
+  </ion-row>
+
+  <ion-buttons
+    class="close-show-keyboard {{ keyboardActive ? 'show' : 'hide' }}"
+  >
+    <ion-button fill="solid" shape="round" color="farmblue">
+      <ion-icon
+        slot="icon-only"
+        src="/assets/menu-icons/Keyboard_hide.svg"
+      ></ion-icon>
+    </ion-button>
+  </ion-buttons>
+
+  <ion-card>
+    <ion-row class="ion-hide-sm-down">
+      <ion-col size="12" class="ion-text-center ion-no-padding">
+        <img class="logo logo-md" src="/assets/img/logo_farmlife.svg" />
+      </ion-col>
+    </ion-row>
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <ion-item lines="full">
+        <ion-label position="floating" color="medium"
+          >{{ 'LOGIN.id' }} *</ion-label
+        >
+        <ion-input
+          [(ngModel)]="defaultLogin"
+          formControlName="login"
+          type="text"
+          color="medium"
+          (keyup.enter)="login()"
+        ></ion-input>
+      </ion-item>
+      <div
+        class="ion-text-left form-error-hint"
+        [class.show]="
+          loginForm.controls.login.errors &&
+          (loginForm.controls.login.dirty || loginForm.controls.login.touched)
+        "
+      >
+        {{ 'LOGIN.username_required' }}
+      </div>
+
+      <ion-item lines="full">
+        <ion-label position="floating" color="medium"
+          >{{ 'LOGIN.password' }} *</ion-label
+        >
+        <ion-input
+          formControlName="password"
+          type="{{ showHidePassword ? 'text' : 'password' }}"
+          color="medium"
+          (keyup.enter)="login()"
+        ></ion-input>
+        <ion-buttons slot="end" class="show-hide-password">
+          <ion-button (click)="showHidePassword = !showHidePassword">
+            <ion-icon
+              slot="icon-only"
+              name="{{ showHidePassword ? 'eye-outline' : 'eye-off-outline' }}"
+            ></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+      <div
+        class="ion-text-left form-error-hint"
+        [class.show]="
+          loginForm.controls.password.errors &&
+          (loginForm.controls.password.dirty ||
+            loginForm.controls.password.touched)
+        "
+      >
+        {{ 'LOGIN.password_required' }}
+      </div>
+
+      <ion-item lines="full">
+        <ion-label color="medium" position="floating">{{
+          'LOGIN.lang'
+        }}</ion-label>
+        <ion-select
+          interface="action-sheet"
+          formControlName="lang"
+          color="medium"
+          [(ngModel)]="existingLang"
+        >
+          <ng-container *ngFor="let lang of availableLanguages">
+            <ion-select-option value="{{ lang.code }}">{{
+              'LOGIN.' + lang.code
+            }}</ion-select-option>
+          </ng-container>
+        </ion-select>
+      </ion-item>
+
+      <ion-button
+        type="submit"
+        shape="round"
+        color="farmblue"
+        expand="block"
+        fill="solid"
+        [disabled]="loginForm.invalid"
+      >
+        <ion-icon name="checkmark-outline" slot="start"></ion-icon>
+        {{ 'LOGIN.login' }}
+      </ion-button>
+      <ion-button
+        shape="round"
+        color="farmblue"
+        expand="block"
+        fill="clear"
+        (click)="lostPwd()"
+      >
+        {{ 'LOGIN.forgot_password' }}
+      </ion-button>
+      <div class="environment" *ngIf="isTestEnvironment">
+        Environnement de TEST
+      </div>
+      <div class="environment" *ngIf="isLocalEnvironment">
+        Environnement LOCAL
+      </div>
+      <div class="version">Version 0</div>
+    </form>
+  </ion-card>
+  <ion-row class="ipsum-logo">
+    <ion-col size="12" class="ion-text-center ion-no-padding">
+      <img class="ipsum-logo" src="/assets/img/ipsum.svg" />
+    </ion-col>
+  </ion-row>
+</ion-content>

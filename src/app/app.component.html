@@ -1,12 +1,6 @@
 <ion-app>
-
-
-    
-    <ion-content class="ion-padding">
-      <app-grid *ngIf="showGrid"></app-grid>
-      <ng-container *ngIf="showLogin">
-      
-      </ng-container>
-    </ion-content>
-  
+  <ion-content class="ion-padding">
+    <app-grid *ngIf="showGrid"></app-grid>
+    <app-login *ngIf="showLogin"></app-login>
+  </ion-content>
 </ion-app>
