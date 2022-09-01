@@ -46,14 +46,14 @@ ion-content {
 }
 .close-show-keyboard {
   position: fixed;
-  transform: translate3d(-48px, -28px, 0);
+  transform: translate3d(8px, -48px, 0);
   width: 48px;
   height: 0;
   overflow: visible;
-  margin-left: 100%;
-  background: white;
+  right: 0;
   border-radius: 50%;
   transition: opacity ease-in 250ms;
+  z-index: 1;
   &.show {
     opacity: 1;
   }

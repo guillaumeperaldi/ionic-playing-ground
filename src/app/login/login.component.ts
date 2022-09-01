@@ -1,4 +1,12 @@
-import { Component, ElementRef, HostListener, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  Renderer2,
+  ViewChild,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomController } from '@ionic/angular';
 
@@ -18,19 +26,20 @@ export class LoginComponent implements OnInit, OnDestroy {
   public visualViewport: string = '';
   public existingLang: string = 'fr-FR';
   public availableLanguages = [{ code: 'fr-FR', locale: 'fr-FR' }];
+  private scrolling = 0;
 
   constructor(
-      public readonly formBuilder: FormBuilder,
-      private renderer: Renderer2,
-      private domCtrl: DomController
-    ) {
+    public readonly formBuilder: FormBuilder,
+    private renderer: Renderer2,
+    private domCtrl: DomController
+  ) {
     this.loginForm = formBuilder.group({
       login: ['', Validators.compose([Validators.required])],
       password: ['', Validators.compose([Validators.required])],
       lang: ['', Validators.compose([Validators.required])],
     });
   }
-  @ViewChild('keyboardButton', {static: true}) keyboardButton: ElementRef;
+  @ViewChild('keyboardButton', { static: true }) keyboardButton: ElementRef;
   @HostListener('window:click', ['$event']) onClick(event: Event): void {
     if (event && event.target) {
       const srcElement = event.target as HTMLElement;
@@ -38,7 +47,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       if (refElement) {
         this.debug += 'x' + refElement ? refElement.tagName : 'NOP';
         this.keyboardActive = true;
-        this.showFakeKeyboard();
+        this.computeViewPort();
       } else {
         this.debug += 'x' + 'NOP';
         this.keyboardActive = false;
@@ -65,27 +74,26 @@ scrollElement.addEventListener('scroll', ev => {
   }
 
   ngOnDestroy() {
+    window.clearTimeout(this.scrolling);
+    this.scrolling = null;
     window.visualViewport.removeEventListener('resize', () =>
       this.computeViewPort()
     );
   }
 
   computeViewPort() {
-    this.visualViewport = '' + window.visualViewport.height;
-    this.domCtrl.write(() => {
-      this.renderer.setStyle(this.keyboardButton, 'top', `${window.visualViewport.height}px`);
-    });
+    window.clearTimeout(this.scrolling);
+    this.scrolling = window.setTimeout(() => {
+      this.visualViewport = '' + window.visualViewport.height;
+      this.domCtrl.write(() => {
+        this.keyboardButton.nativeElement.style.top = `${window.visualViewport.height}px`;
+      });
+    }, 250);
   }
 
   login() {
     if (this.loginForm.invalid) {
       throw Error('INVALID_FORM');
     }
-  }
-  hideFakeKeyboard() {
-    this.showKeyboard = false;
-  }
-  showFakeKeyboard() {
-    this.showKeyboard = true;
   }
 }
