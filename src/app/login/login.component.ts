@@ -86,7 +86,9 @@ scrollElement.addEventListener('scroll', ev => {
     this.scrolling = window.setTimeout(() => {
       this.visualViewport = '' + window.visualViewport.height;
       this.domCtrl.write(() => {
-        this.keyboardButton.nativeElement.style.top = `${window.visualViewport.height}px`;
+        if (this.keyboardButton.nativeElement) {
+          this.keyboardButton.nativeElement.style.top = `${window.visualViewport.height}px`;
+        }
       });
     }, 250);
   }
