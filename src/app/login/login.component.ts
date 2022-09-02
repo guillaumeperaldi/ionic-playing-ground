@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   public existingLang: string = 'fr-FR';
   public availableLanguages = [{ code: 'fr-FR', locale: 'fr-FR' }];
   private scrolling = 0;
+  private scrollRef: HTMLElement;
 
   constructor(
     public readonly formBuilder: FormBuilder,
@@ -39,7 +40,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       lang: ['', Validators.compose([Validators.required])],
     });
   }
-  @ViewChild('keyboardButton', { static: true }) keyboardButton: ElementRef;
+  @ViewChild('keyboardButton', { static: false }) keyboardButton: ElementRef;
   @HostListener('window:click', ['$event']) onClick(event: Event): void {
     if (event && event.target) {
       const srcElement = event.target as HTMLElement;
@@ -68,6 +69,8 @@ scrollElement.addEventListener('scroll', ev => {
   */
   ngOnInit() {
     this.viewport = 'viewport ' + window.visualViewport.height;
+    this.scrollRef = this.keyboardButton.nativeElement;
+    console.log(this.keyboardButton);
     window.visualViewport.addEventListener('resize', () =>
       this.computeViewPort()
     );
@@ -86,7 +89,7 @@ scrollElement.addEventListener('scroll', ev => {
     this.scrolling = window.setTimeout(() => {
       this.visualViewport = '' + window.visualViewport.height;
       this.domCtrl.write(() => {
-        if (this.keyboardButton.nativeElement) {
+        if (this.keyboardButton && this.keyboardButton.nativeElement) {
           this.keyboardButton.nativeElement.style.top = `${window.visualViewport.height}px`;
         }
       });
