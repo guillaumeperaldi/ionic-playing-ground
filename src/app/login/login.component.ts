@@ -1,44 +1,48 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   HostListener,
   OnDestroy,
   OnInit,
-  Renderer2,
   ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DomController } from '@ionic/angular';
+import { DomController, Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   public loginForm: FormGroup;
   public showKeyboard: boolean = false;
   public keyboardActive: boolean = false;
   public showHidePassword: boolean = false;
   public defaultLogin: string = '';
   public debug: string = '';
-  public viewport: string = '';
+  public viewportHeight: number;
   public visualViewport: string = '';
   public existingLang: string = 'fr-FR';
   public availableLanguages = [{ code: 'fr-FR', locale: 'fr-FR' }];
-  private scrolling = 0;
+  private timer = 0;
   private scrollRef: HTMLElement;
+  private delay: number;
 
   constructor(
     public readonly formBuilder: FormBuilder,
-    private renderer: Renderer2,
-    private domCtrl: DomController
+    private readonly domCtrl: DomController,
+    private readonly platform: Platform
   ) {
     this.loginForm = formBuilder.group({
       login: ['', Validators.compose([Validators.required])],
       password: ['', Validators.compose([Validators.required])],
       lang: ['', Validators.compose([Validators.required])],
     });
+  }
+  ngAfterViewInit(): void {
+    this.setTop();
   }
   @ViewChild('keyboardButton', { static: false }) keyboardButton: ElementRef;
   @HostListener('window:click', ['$event']) click(event: Event): void {
@@ -55,42 +59,40 @@ export class LoginComponent implements OnInit, OnDestroy {
       }
     }
   }
+  @HostListener('window:resize', ['$event']) resize(): void {
+    if (window.visualViewport.height >= this.viewportHeight) {
+      this.keyboardActive = false;
+    }
+  }
 
-  /*
-scrollElement.addEventListener('scroll', ev => {
-                    // debounce resize, wait for resize to finish before doing stuff
-                    window.clearTimeout(this.scrolling);
-                    this.scrolling = window.setTimeout(() => {
-                        if (this.userEvent) {
-                            this.saveScrollYPosition(scrollElement.scrollHeight, scrollElement.scrollTop);
-                        }
-                    }, 250);
-                });
-  */
+  test(f: string) {
+    this.keyboardActive = false;
+  }
+
   ngOnInit() {
-    this.viewport = 'viewport ' + window.visualViewport.height;
-    this.scrollRef = this.keyboardButton.nativeElement;
-    console.log(this.keyboardButton);
-    window.visualViewport.addEventListener('resize', () =>
-      this.computeViewPort()
-    );
+    this.viewportHeight = window.visualViewport.height;
+    this.delay = this.platform.is('ios') ? 1000 : 250;
+    window.visualViewport.addEventListener('resize', () => {
+      this.computeViewPort();
+      console.log('reszize');
+    });
   }
 
   ngOnDestroy() {
-    window.clearTimeout(this.scrolling);
-    this.scrolling = null;
+    window.clearTimeout(this.timer);
+    this.timer = null;
     window.visualViewport.removeEventListener('resize', () =>
       this.computeViewPort()
     );
   }
 
   computeViewPort() {
-    window.clearTimeout(this.scrolling);
-    this.scrolling = window.setTimeout(() => {
-      this.visualViewport = '' + window.visualViewport.height;
+    window.clearTimeout(this.timer);
+    this.timer = window.setTimeout(() => {
+      this.visualViewport = 'oo' + window.visualViewport.height;
 
       this.setTop();
-    }, 1000);
+    }, this.delay);
   }
 
   setTop() {
