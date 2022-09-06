@@ -24,9 +24,13 @@
         <img class="logo logo-md" src="/assets/img/logo_farmlife.svg" />
       </ion-col>
     </ion-row>
-    <div style="color:red">
+    <div style="color:red; font-size:8px;;height:20px">
       {{ viewportHeight }} | {{ visualViewport }} {{ debug }}
     </div>
+    <div style="color:red; font-size:8px;height:20px">
+      {{ scrollRef }}
+    </div>
+
     <form [formGroup]="loginForm" (ngSubmit)="login()">
       <ion-item lines="full">
         <ion-label position="floating" color="medium"

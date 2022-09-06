@@ -26,8 +26,8 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   public visualViewport: string = '';
   public existingLang: string = 'fr-FR';
   public availableLanguages = [{ code: 'fr-FR', locale: 'fr-FR' }];
+  public scrollRef: string = '';
   private timer = 0;
-  private scrollRef: HTMLElement;
   private delay: number;
 
   constructor(
@@ -60,8 +60,16 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
   @HostListener('window:resize', ['$event']) resize(): void {
+    this.scrollRef =
+      window.visualViewport.height +
+      ' >= ' +
+      this.viewportHeight +
+      ':' +
+      (window.visualViewport.height >= this.viewportHeight);
     if (window.visualViewport.height >= this.viewportHeight) {
       this.keyboardActive = false;
+    } else {
+      this.keyboardActive = true;
     }
   }
 
