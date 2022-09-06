@@ -24,7 +24,9 @@
         <img class="logo logo-md" src="/assets/img/logo_farmlife.svg" />
       </ion-col>
     </ion-row>
-    <div style="color:red">{{ viewport }} | {{ visualViewport }}</div>
+    <div style="color:red">
+      {{ viewport }} | {{ visualViewport }} {{ debug }}
+    </div>
     <form [formGroup]="loginForm" (ngSubmit)="login()">
       <ion-item lines="full">
         <ion-label position="floating" color="medium"

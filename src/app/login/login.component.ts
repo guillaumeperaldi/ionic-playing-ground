@@ -41,16 +41,16 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
   @ViewChild('keyboardButton', { static: false }) keyboardButton: ElementRef;
-  @HostListener('window:click', ['$event']) onClick(event: Event): void {
+  @HostListener('window:click', ['$event']) click(event: Event): void {
     if (event && event.target) {
       const srcElement = event.target as HTMLElement;
-      const refElement = srcElement.closest('input');
-      if (refElement) {
-        this.debug += 'x' + refElement ? refElement.tagName : 'NOP';
+      const refElement = srcElement.closest('ion-item');
+      if (refElement && refElement.classList.contains('item-input')) {
+        this.debug = refElement.tagName;
         this.keyboardActive = true;
         this.computeViewPort();
       } else {
-        this.debug += 'x' + 'NOP';
+        this.debug = 'x' + 'NOP';
         this.keyboardActive = false;
       }
     }
@@ -88,12 +88,17 @@ scrollElement.addEventListener('scroll', ev => {
     window.clearTimeout(this.scrolling);
     this.scrolling = window.setTimeout(() => {
       this.visualViewport = '' + window.visualViewport.height;
-      this.domCtrl.write(() => {
-        if (this.keyboardButton && this.keyboardButton.nativeElement) {
-          this.keyboardButton.nativeElement.style.top = `${window.visualViewport.height}px`;
-        }
-      });
-    }, 250);
+
+      this.setTop();
+    }, 1000);
+  }
+
+  setTop() {
+    this.domCtrl.write(() => {
+      if (this.keyboardButton && this.keyboardButton.nativeElement) {
+        this.keyboardButton.nativeElement.style.top = `${window.visualViewport.height}px`;
+      }
+    });
   }
 
   login() {

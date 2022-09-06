@@ -26,3 +26,8 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 
+
+html, body {
+  overflow: hidden;
+  border: 1px solid red;
+}
